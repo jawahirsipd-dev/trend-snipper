@@ -8,1123 +8,137 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #080810;
-    --bg2: #0e0e1a;
-    --bg3: #13131f;
-    --border: rgba(255,255,255,0.07);
-    --border-bright: rgba(255,255,255,0.14);
-    --text: #f0eff8;
-    --muted: #7e7d95;
-    --accent: #7b6ef6;
-    --accent2: #5b4de0;
-    --accent-glow: rgba(123,110,246,0.25);
-    --hot: #ff5c3a;
-    --green: #2ce4a0;
-    --amber: #f5a623;
+    --bg: #080810; --bg2: #0e0e1a; --bg3: #13131f;
+    --border: rgba(255,255,255,0.07); --border-bright: rgba(255,255,255,0.14);
+    --text: #f0eff8; --muted: #7e7d95; --accent: #7b6ef6; --accent2: #5b4de0;
+    --accent-glow: rgba(123,110,246,0.25); --hot: #ff5c3a; --green: #2ce4a0; --amber: #f5a623;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ── NOISE TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  /* ── GRID LINES ── */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(123,110,246,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(123,110,246,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 48px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(8,8,16,0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  .logo-mark {
-    width: 34px; height: 34px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .logo-mark::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.5; }
+  body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(123,110,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(123,110,246,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 1px solid var(--border); background: rgba(8,8,16,0.7); backdrop-filter: blur(20px); }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .logo-mark::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent); }
   .logo-mark svg { position: relative; z-index: 1; }
-
-  .logo-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--text);
-    letter-spacing: -0.02em;
-  }
-
+  .logo-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--text); letter-spacing: -0.02em; }
   .logo-name span { color: var(--accent); }
-
-  nav ul {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    list-style: none;
-  }
-
-  nav ul a {
-    font-size: 14px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  nav ul { display: flex; align-items: center; gap: 32px; list-style: none; }
+  nav ul a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   nav ul a:hover { color: var(--text); }
-
-  .nav-cta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .btn-ghost {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--muted);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: color 0.2s;
-    text-decoration: none;
-  }
-
+  .nav-cta { display: flex; align-items: center; gap: 12px; }
+  .btn-ghost { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 8px 16px; border-radius: 8px; transition: color 0.2s; text-decoration: none; }
   .btn-ghost:hover { color: var(--text); }
-
-  .btn-primary {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 9px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    white-space: nowrap;
-  }
-
-  .btn-primary:hover {
-    background: #8f82f8;
-    box-shadow: 0 0 24px var(--accent-glow);
-    transform: translateY(-1px);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 120px 24px 80px;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  /* orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-  }
-
-  .orb-1 {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(123,110,246,0.18) 0%, transparent 70%);
-    top: -100px; left: 50%;
-    transform: translateX(-50%);
-    animation: float1 8s ease-in-out infinite;
-  }
-
-  .orb-2 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,92,58,0.1) 0%, transparent 70%);
-    bottom: 100px; right: -100px;
-    animation: float2 10s ease-in-out infinite;
-  }
-
-  .orb-3 {
-    width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(44,228,160,0.08) 0%, transparent 70%);
-    top: 200px; left: -80px;
-    animation: float3 12s ease-in-out infinite;
-  }
-
+  .btn-primary { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; background: var(--accent); color: #fff; border: none; padding: 9px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; white-space: nowrap; }
+  .btn-primary:hover { background: #8f82f8; box-shadow: 0 0 24px var(--accent-glow); transform: translateY(-1px); }
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; z-index: 1; overflow: hidden; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(123,110,246,0.18) 0%, transparent 70%); top: -100px; left: 50%; transform: translateX(-50%); animation: float1 8s ease-in-out infinite; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,92,58,0.1) 0%, transparent 70%); bottom: 100px; right: -100px; animation: float2 10s ease-in-out infinite; }
+  .orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(44,228,160,0.08) 0%, transparent 70%); top: 200px; left: -80px; animation: float3 12s ease-in-out infinite; }
   @keyframes float1 { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-30px)} }
   @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
   @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(25px)} }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(123,110,246,0.12);
-    border: 1px solid rgba(123,110,246,0.3);
-    color: #a99dfa;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 32px;
-    animation: fadeUp 0.6s ease both;
-  }
-
-  .badge-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: blink 1.5s ease-in-out infinite;
-  }
-
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(123,110,246,0.12); border: 1px solid rgba(123,110,246,0.3); color: #a99dfa; font-size: 12px; font-weight: 500; padding: 5px 14px; border-radius: 100px; margin-bottom: 32px; animation: fadeUp 0.6s ease both; }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: blink 1.5s ease-in-out infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(40px, 7vw, 84px);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    max-width: 900px;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-
-  h1 .grad {
-    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, #ff5c3a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: clamp(16px, 2.2vw, 20px);
-    color: var(--muted);
-    max-width: 560px;
-    line-height: 1.6;
-    margin-top: 24px;
-    font-weight: 300;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-
-  .btn-xl {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 14px 32px;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-xl:hover {
-    background: #8f82f8;
-    box-shadow: 0 0 40px var(--accent-glow);
-    transform: translateY(-2px);
-  }
-
-  .btn-xl-outline {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    color: var(--muted);
-    background: none;
-    border: 1px solid var(--border-bright);
-    padding: 14px 32px;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-xl-outline:hover {
-    color: var(--text);
-    border-color: rgba(255,255,255,0.25);
-    background: rgba(255,255,255,0.04);
-  }
-
-  .hero-social-proof {
-    margin-top: 48px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    animation: fadeUp 0.6s 0.4s ease both;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .avatars {
-    display: flex;
-    align-items: center;
-  }
-
-  .avatars span {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 2px solid var(--bg);
-    margin-left: -8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(40px, 7vw, 84px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; max-width: 900px; animation: fadeUp 0.6s 0.1s ease both; }
+  h1 .grad { background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, #ff5c3a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); max-width: 560px; line-height: 1.6; margin-top: 24px; font-weight: 300; animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-actions { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-xl { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; background: var(--accent); color: #fff; border: none; padding: 14px 32px; border-radius: 10px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-xl:hover { background: #8f82f8; box-shadow: 0 0 40px var(--accent-glow); transform: translateY(-2px); }
+  .btn-xl-outline { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--muted); background: none; border: 1px solid var(--border-bright); padding: 14px 32px; border-radius: 10px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-xl-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+  .hero-social-proof { margin-top: 48px; display: flex; align-items: center; gap: 20px; animation: fadeUp 0.6s 0.4s ease both; flex-wrap: wrap; justify-content: center; }
+  .avatars { display: flex; align-items: center; }
+  .avatars span { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
   .avatars span:first-child { margin-left: 0; }
-
-  .proof-text {
-    font-size: 13px;
-    color: var(--muted);
-  }
-
+  .proof-text { font-size: 13px; color: var(--muted); }
   .proof-text strong { color: var(--text); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── LIVE TICKER ── */
-  .ticker-wrapper {
-    width: 100%;
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-    padding: 10px 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  .ticker-track {
-    display: flex;
-    gap: 0;
-    animation: ticker 40s linear infinite;
-    width: max-content;
-  }
-
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 32px;
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .ticker-wrapper { width: 100%; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); padding: 10px 0; position: relative; z-index: 1; }
+  .ticker-track { display: flex; gap: 0; animation: ticker 40s linear infinite; width: max-content; }
+  .ticker-item { display: inline-flex; align-items: center; gap: 8px; padding: 0 32px; font-size: 12px; color: var(--muted); white-space: nowrap; }
   .ticker-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
   .ticker-label { font-weight: 500; }
-
   @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-  /* ── DASHBOARD PREVIEW ── */
-  .preview-section {
-    position: relative;
-    z-index: 1;
-    padding: 80px 48px 40px;
-    text-align: center;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-
-  .preview-frame {
-    position: relative;
-    max-width: 1000px;
-    margin: 48px auto 0;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border-bright);
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 40px 80px rgba(0,0,0,0.5), 0 0 100px rgba(123,110,246,0.1);
-  }
-
-  .preview-bar {
-    background: var(--bg3);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .dot-red { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
-  .dot-yellow { width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; }
-  .dot-green { width: 12px; height: 12px; border-radius: 50%; background: #28c840; }
-
-  .preview-url {
-    flex: 1;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  /* fake dashboard inside preview */
-  .fake-dash {
-    background: var(--bg2);
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    height: 480px;
-    overflow: hidden;
-  }
-
-  .fake-sidebar {
-    background: var(--bg);
-    border-right: 1px solid var(--border);
-    padding: 16px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .fake-logo-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    padding: 0 6px;
-  }
-
-  .fake-logo-sq {
-    width: 22px; height: 22px;
-    background: var(--accent);
-    border-radius: 5px;
-  }
-
-  .fake-logo-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .fake-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .fake-nav-item.active {
-    background: rgba(123,110,246,0.12);
-    color: var(--accent);
-  }
-
-  .fake-nav-icon {
-    width: 14px; height: 14px;
-    border-radius: 3px;
-    flex-shrink: 0;
-  }
-
-  .fake-main {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .fake-topbar {
-    border-bottom: 1px solid var(--border);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(14,14,26,0.8);
-  }
-
-  .fake-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .fake-live {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    color: var(--hot);
-    background: rgba(255,92,58,0.1);
-    border: 1px solid rgba(255,92,58,0.2);
-    padding: 3px 8px;
-    border-radius: 100px;
-  }
-
-  .live-pulse {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--hot);
-    animation: blink 1.2s ease-in-out infinite;
-  }
-
-  .fake-content {
-    flex: 1;
-    padding: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .fake-metrics {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  .fake-metric {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px;
-  }
-
-  .fake-metric-label {
-    font-size: 9px;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .fake-metric-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .fake-metric-delta {
-    font-size: 9px;
-    color: var(--green);
-    margin-top: 2px;
-  }
-
-  .fake-two-col {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 10px;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .fake-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .fake-card-header {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .fake-trend-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 12px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-
-  .fake-trend-row:last-child { border-bottom: none; }
-  .fake-trend-row:hover { background: rgba(255,255,255,0.03); }
-
-  .fake-rank { font-size: 9px; color: var(--muted); width: 12px; }
-
-  .fake-trend-info { flex: 1; }
-
-  .fake-trend-name { font-size: 10px; color: var(--text); margin-bottom: 2px; }
-
-  .fake-trend-meta { font-size: 9px; color: var(--muted); }
-
-  .fake-heat {
-    width: 50px; height: 3px;
-    border-radius: 2px;
-    background: rgba(255,255,255,0.06);
-    overflow: hidden;
-  }
-
-  .fake-heat-fill { height: 100%; border-radius: 2px; }
-
-  .fake-score {
-    font-size: 9px;
-    font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 100px;
-  }
-
-  .score-hot { background: rgba(255,92,58,0.15); color: #ff7a5a; }
-  .score-rise { background: rgba(123,110,246,0.15); color: #9e94f8; }
-  .score-new { background: rgba(44,228,160,0.12); color: var(--green); }
-
-  /* sparkline inside card */
-  .fake-sparkline {
-    padding: 12px;
-  }
-
-  /* mini feed */
-  .fake-feed-item {
-    display: flex;
-    gap: 8px;
-    padding: 7px 10px;
-    border-bottom: 1px solid var(--border);
-    align-items: flex-start;
-  }
-
-  .fake-feed-item:last-child { border-bottom: none; }
-
-  .fake-feed-icon {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 700;
-  }
-
-  .fake-feed-text { font-size: 9px; color: var(--muted); line-height: 1.4; }
-
-  /* ── FEATURES ── */
-  .features-section {
-    position: relative;
-    z-index: 1;
-    padding: 100px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 64px;
-  }
-
-  h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-
-  .section-sub {
-    font-size: 17px;
-    color: var(--muted);
-    margin-top: 16px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .feature-card {
-    background: var(--bg2);
-    padding: 32px 28px;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  .section-sub { font-size: 17px; color: var(--muted); margin-top: 16px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6; font-weight: 300; }
+  .stats-section { position: relative; z-index: 1; padding: 80px 48px; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .stat-number { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(135deg, #fff 40%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-label { font-size: 14px; color: var(--muted); margin-top: 6px; font-weight: 300; }
+  .features-section { position: relative; z-index: 1; padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .feature-card { background: var(--bg2); padding: 32px 28px; transition: background 0.2s; position: relative; overflow: hidden; }
+  .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
   .feature-card:hover { background: var(--bg3); }
   .feature-card:hover::before { opacity: 1; }
-
-  .feature-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border);
-  }
-
-  .feature-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
-  }
-
-  .feature-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* ── STATS ── */
-  .stats-section {
-    position: relative;
-    z-index: 1;
-    padding: 80px 48px;
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 48px;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--text);
-    background: linear-gradient(135deg, #fff 40%, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .stat-label {
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 6px;
-    font-weight: 300;
-  }
-
-  /* ── PRICING ── */
-  .pricing-section {
-    position: relative;
-    z-index: 1;
-    padding: 100px 48px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 64px;
-  }
-
-  .pricing-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    transition: border-color 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pricing-card:hover {
-    border-color: var(--border-bright);
-    transform: translateY(-4px);
-  }
-
-  .pricing-card.featured {
-    border-color: var(--accent);
-    background: linear-gradient(180deg, rgba(123,110,246,0.08) 0%, var(--bg2) 100%);
-  }
-
-  .pricing-card.featured:hover {
-    border-color: #a99dfa;
-  }
-
-  .featured-badge {
-    position: absolute;
-    top: 16px; right: 16px;
-    font-size: 10px;
-    font-weight: 600;
-    background: var(--accent);
-    color: white;
-    padding: 3px 10px;
-    border-radius: 100px;
-    letter-spacing: 0.04em;
-  }
-
-  .plan-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .plan-price {
-    font-family: 'Syne', sans-serif;
-    font-size: 44px;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--text);
-    line-height: 1;
-  }
-
+  .feature-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .feature-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+  .pricing-section { position: relative; z-index: 1; padding: 100px 48px; max-width: 1000px; margin: 0 auto; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 64px; }
+  .pricing-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 32px 24px; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .pricing-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
+  .pricing-card.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(123,110,246,0.08) 0%, var(--bg2) 100%); }
+  .featured-badge { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 600; background: var(--accent); color: white; padding: 3px 10px; border-radius: 100px; }
+  .plan-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .plan-price { font-family: 'Syne', sans-serif; font-size: 44px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
   .plan-price sup { font-size: 22px; vertical-align: super; }
   .plan-price sub { font-size: 14px; color: var(--muted); font-weight: 300; vertical-align: baseline; }
-
-  .plan-desc {
-    font-size: 13px;
-    color: var(--muted);
-    margin: 12px 0 24px;
-    line-height: 1.5;
-    font-weight: 300;
-  }
-
-  .plan-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    margin-bottom: 28px;
-  }
-
-  .plan-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .check {
-    color: var(--green);
-    font-size: 14px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .cross {
-    color: rgba(255,255,255,0.2);
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  /* ── SOURCES SCROLL ── */
-  .sources-section {
-    position: relative;
-    z-index: 1;
-    padding: 60px 0;
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-  }
-
-  .sources-label {
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-
-  .sources-track {
-    display: flex;
-    gap: 0;
-    animation: ticker 30s linear infinite;
-    width: max-content;
-  }
-
-  .source-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 20px;
-    margin: 0 8px;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    background: var(--bg2);
-    font-size: 13px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  .source-icon { font-size: 14px; }
-
-  /* ── CTA ── */
-  .cta-section {
-    position: relative;
-    z-index: 1;
-    padding: 120px 48px;
-    text-align: center;
-    overflow: hidden;
-  }
-
-  .cta-section .orb-1 {
-    width: 800px; height: 400px;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    animation: none;
-  }
-
-  .cta-box {
-    position: relative;
-    max-width: 640px;
-    margin: 0 auto;
-    background: var(--bg2);
-    border: 1px solid var(--border-bright);
-    border-radius: 24px;
-    padding: 64px 48px;
-    overflow: hidden;
-  }
-
-  .cta-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(123,110,246,0.05) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .cta-box h2 { font-size: clamp(28px, 4vw, 44px); }
-
-  .cta-form {
-    display: flex;
-    gap: 8px;
-    margin-top: 32px;
-    max-width: 440px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border-bright);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .plan-desc { font-size: 13px; color: var(--muted); margin: 12px 0 24px; line-height: 1.5; font-weight: 300; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; margin-bottom: 28px; }
+  .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .check { color: var(--green); font-size: 14px; flex-shrink: 0; }
+  .cross { color: rgba(255,255,255,0.2); font-size: 14px; flex-shrink: 0; }
+  .sources-section { position: relative; z-index: 1; padding: 60px 0; overflow: hidden; border-top: 1px solid var(--border); }
+  .sources-label { text-align: center; font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; }
+  .sources-track { display: flex; animation: ticker 30s linear infinite; width: max-content; }
+  .source-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; margin: 0 8px; border: 1px solid var(--border); border-radius: 100px; background: var(--bg2); font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .cta-section { position: relative; z-index: 1; padding: 120px 48px; text-align: center; overflow: hidden; }
+  .cta-box { position: relative; max-width: 640px; margin: 0 auto; background: var(--bg2); border: 1px solid var(--border-bright); border-radius: 24px; padding: 64px 48px; overflow: hidden; }
+  .cta-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(123,110,246,0.05) 0%, transparent 60%); pointer-events: none; }
+  .cta-form { display: flex; gap: 8px; margin-top: 32px; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .cta-input { flex: 1; background: var(--bg); border: 1px solid var(--border-bright); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 16px; border-radius: 8px; outline: none; transition: border-color 0.2s; }
   .cta-input:focus { border-color: var(--accent); }
   .cta-input::placeholder { color: var(--muted); }
-
-  /* ── FOOTER ── */
-  footer {
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 40px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-  }
-
-  .footer-mark {
-    width: 22px; height: 22px;
-    background: var(--accent);
-    border-radius: 5px;
-  }
-
-  .footer-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-mark { width: 22px; height: 22px; background: var(--accent); border-radius: 5px; }
+  .footer-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--text); }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  /* ── SCROLL ANIMATIONS ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 14px 20px; }
-    nav ul { display: none; }
-    .features-grid { grid-template-columns: 1fr; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .hero { padding: 100px 20px 60px; }
-    .features-section, .pricing-section { padding: 60px 20px; }
-    .cta-box { padding: 40px 24px; }
-    .cta-form { flex-direction: column; }
-    footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
-    .fake-dash { grid-template-columns: 1fr; }
-    .fake-sidebar { display: none; }
-    .fake-metrics { grid-template-columns: repeat(2, 1fr); }
-    .fake-two-col { grid-template-columns: 1fr; }
-    .preview-section { padding: 60px 16px 40px; }
-  }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* AI Analyzer */
+  .ai-section { position: relative; z-index: 1; padding: 100px 48px; max-width: 860px; margin: 0 auto; }
+  .ai-box { background: var(--bg2); border: 1px solid var(--border-bright); border-radius: 16px; padding: 32px; position: relative; overflow: hidden; }
+  .ai-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(123,110,246,0.05), transparent); pointer-events: none; }
+  .ai-input { width: 100%; background: var(--bg); border: 1px solid var(--border-bright); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 14px 18px; border-radius: 10px; outline: none; transition: border-color 0.2s; }
+  .ai-input:focus { border-color: var(--accent); }
+  .ai-input::placeholder { color: var(--muted); }
+  .ai-btn { background: var(--accent); color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+  .ai-btn:hover { background: #8f82f8; transform: translateY(-1px); }
+  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .chip { font-size: 11px; padding: 4px 12px; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; border: 1px solid; background: transparent; transition: all 0.2s; }
+  .chip:hover { opacity: 0.8; }
+  .ocard { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .ocard-label { font-size: 10px; font-family: 'DM Sans', sans-serif; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .ocard-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  @media(max-width:768px) { nav { padding: 14px 20px; } nav ul { display: none; } .features-grid { grid-template-columns: 1fr; } .pricing-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2,1fr); gap: 32px; } .hero { padding: 100px 20px 60px; } .features-section, .pricing-section, .ai-section { padding: 60px 20px; } .cta-box { padding: 40px 24px; } .cta-form { flex-direction: column; } footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="logo">
     <div class="logo-mark">
@@ -1136,47 +150,27 @@
   </a>
   <ul>
     <li><a href="#features">Features</a></li>
-    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#ai-analyzer">AI Analyzer</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#sources">Sources</a></li>
   </ul>
   <div class="nav-cta">
     <a href="#" class="btn-ghost">Sign in</a>
-    <a href="#cta" class="btn-primary">Get started free →</a>
+    <a href="#ai-analyzer" class="btn-primary">Try AI Free →</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
-
-  <div class="badge">
-    <span class="badge-dot"></span>
-    Live trend scanning · 25+ sources
-  </div>
-
-  <h1>
-    <span class="grad">Catch viral trends</span><br>
-    before anyone else
-  </h1>
-
-  <p class="hero-sub">
-    AI-powered trend intelligence for creators, agencies, and brands. Detect rising opportunities 48–72 hours early — before the market gets saturated.
-  </p>
-
+  <div class="badge"><span class="badge-dot"></span>Live trend scanning · 25+ sources</div>
+  <h1><span class="grad">Catch viral trends</span><br>before anyone else</h1>
+  <p class="hero-sub">AI-powered trend intelligence for creators, agencies, and brands. Detect rising opportunities 48–72 hours early — before the market gets saturated.</p>
   <div class="hero-actions">
-    <a href="#cta" class="btn-xl">
-      Start for free
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <a href="#preview" class="btn-xl-outline">
-      See demo
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 6L10.5 8L6.5 10V6Z" fill="currentColor"/></svg>
-    </a>
+    <a href="#ai-analyzer" class="btn-xl">Try AI Analyzer Free <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="#features" class="btn-xl-outline">See features <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 6L10.5 8L6.5 10V6Z" fill="currentColor"/></svg></a>
   </div>
-
   <div class="hero-social-proof">
     <div class="avatars">
       <span style="background:#7b6ef6;color:#fff;">AK</span>
@@ -1189,7 +183,6 @@
   </div>
 </section>
 
-<!-- LIVE TICKER -->
 <div class="ticker-wrapper">
   <div class="ticker-track">
     <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> AI faceless channels · Heat 95 · +4800% this week</div>
@@ -1197,247 +190,87 @@
     <div class="ticker-item"><span class="ticker-dot" style="background:#2ce4a0;"></span><span class="ticker-label" style="color:#2ce4a0;">NEW</span> Sleep optimization · Heat 68 · Low competition</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#f5a623;"></span><span class="ticker-label" style="color:#f5a623;">PEAK</span> Quiet luxury 2025 · Heat 82 · Instagram surging</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#7b6ef6;"></span><span class="ticker-label" style="color:#9e94f8;">RISING</span> Micro SaaS solopreneurs · Heat 79 · Twitter/X + Indie Hackers</div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> ADHD productivity · Heat 91 · Demand 91 · Low competition</div>
-    <!-- repeat for seamless loop -->
+    <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> ADHD productivity · Heat 91 · Low competition</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> AI faceless channels · Heat 95 · +4800% this week</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#7b6ef6;"></span><span class="ticker-label" style="color:#9e94f8;">RISING</span> Vibe coding tutorials · Heat 87 · +340% search volume</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#2ce4a0;"></span><span class="ticker-label" style="color:#2ce4a0;">NEW</span> Sleep optimization · Heat 68 · Low competition</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#f5a623;"></span><span class="ticker-label" style="color:#f5a623;">PEAK</span> Quiet luxury 2025 · Heat 82 · Instagram surging</div>
     <div class="ticker-item"><span class="ticker-dot" style="background:#7b6ef6;"></span><span class="ticker-label" style="color:#9e94f8;">RISING</span> Micro SaaS solopreneurs · Heat 79 · Twitter/X + Indie Hackers</div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> ADHD productivity · Heat 91 · Demand 91 · Low competition</div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#ff5c3a;"></span><span class="ticker-label" style="color:#ff7a5a;">VIRAL</span> ADHD productivity · Heat 91 · Low competition</div>
   </div>
 </div>
 
-<!-- DASHBOARD PREVIEW -->
-<section class="preview-section" id="preview">
-  <div class="section-label">Command center</div>
-  <h2>Everything you need to<br>dominate any niche</h2>
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="reveal"><div class="stat-number">25+</div><div class="stat-label">Sources monitored</div></div>
+    <div class="reveal"><div class="stat-number">2.8M</div><div class="stat-label">Trends analyzed daily</div></div>
+    <div class="reveal"><div class="stat-number">72h</div><div class="stat-label">Average early detection</div></div>
+    <div class="reveal"><div class="stat-number">94%</div><div class="stat-label">Prediction accuracy</div></div>
+  </div>
+</div>
 
-  <div class="preview-frame reveal">
-    <div class="preview-bar">
-      <div class="dot-red"></div>
-      <div class="dot-yellow"></div>
-      <div class="dot-green"></div>
-      <div class="preview-url">app.trendsniper.ai — Dashboard</div>
+<!-- AI ANALYZER -->
+<section class="ai-section" id="ai-analyzer">
+  <div style="text-align:center;margin-bottom:48px;">
+    <div class="section-label">✨ Powered by Gemini AI</div>
+    <h2>Analyze Any Trend Instantly</h2>
+    <p class="section-sub">Type any niche or topic — get a full AI trend report in seconds. Free to use.</p>
+  </div>
+  <div class="ai-box reveal">
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <input id="trend-input" class="ai-input" type="text" placeholder="e.g. AI faceless YouTube channels, Quiet luxury, Micro SaaS...">
+      <button id="analyze-btn" class="ai-btn" onclick="analyzeTrend()">
+        <span id="btn-spinner" style="width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none;"></span>
+        <span id="btn-label">Analyze 🔍</span>
+      </button>
     </div>
-    <div class="fake-dash">
-      <!-- sidebar -->
-      <div class="fake-sidebar">
-        <div class="fake-logo-row">
-          <div class="fake-logo-sq"></div>
-          <span class="fake-logo-name">TrendSniper</span>
-        </div>
-        <div class="fake-nav-item active">
-          <div class="fake-nav-icon" style="background:rgba(123,110,246,0.3);"></div>
-          Trending now
-        </div>
-        <div class="fake-nav-item">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Opportunities
-        </div>
-        <div class="fake-nav-item">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Predictions
-        </div>
-        <div class="fake-nav-item">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Geo radar
-        </div>
-        <div class="fake-nav-item" style="margin-top:12px;">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Hook generator
-        </div>
-        <div class="fake-nav-item">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Script writer
-        </div>
-        <div class="fake-nav-item">
-          <div class="fake-nav-icon" style="background:rgba(255,255,255,0.06);"></div>
-          Calendar
-        </div>
-      </div>
-      <!-- main -->
-      <div class="fake-main">
-        <div class="fake-topbar">
-          <span class="fake-title">Trending now</span>
-          <div class="fake-live"><div class="live-pulse"></div> LIVE</div>
-        </div>
-        <div class="fake-content">
-          <div class="fake-metrics">
-            <div class="fake-metric">
-              <div class="fake-metric-label">Trends detected</div>
-              <div class="fake-metric-val">2,847</div>
-              <div class="fake-metric-delta">↑ 312 today</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+      <span style="font-size:11px;color:var(--muted);line-height:2;">Try:</span>
+      <button class="chip" style="color:#a99dfa;border-color:rgba(123,110,246,0.3);" onclick="quickAnalyze('AI faceless YouTube channels')">AI faceless channels</button>
+      <button class="chip" style="color:#ff7a5a;border-color:rgba(255,92,58,0.3);" onclick="quickAnalyze('Quiet luxury fashion')">Quiet luxury</button>
+      <button class="chip" style="color:#2ce4a0;border-color:rgba(44,228,160,0.3);" onclick="quickAnalyze('Micro SaaS solopreneurs')">Micro SaaS</button>
+      <button class="chip" style="color:#f5a623;border-color:rgba(245,166,35,0.3);" onclick="quickAnalyze('Vibe coding tutorials')">Vibe coding</button>
+      <button class="chip" style="color:#a99dfa;border-color:rgba(123,110,246,0.3);" onclick="quickAnalyze('ADHD productivity hacks')">ADHD productivity</button>
+    </div>
+    <div id="ai-error" style="display:none;color:#ff7a5a;font-size:13px;padding:12px 16px;background:rgba(255,92,58,0.1);border:1px solid rgba(255,92,58,0.2);border-radius:8px;margin-bottom:16px;"></div>
+    <div id="ai-output" style="display:none;">
+      <div style="border-top:1px solid var(--border);padding-top:24px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+          <div>
+            <div id="ai-trend-name" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--text);letter-spacing:-0.02em;"></div>
+            <div id="ai-trend-tag" style="font-size:13px;color:var(--muted);margin-top:4px;"></div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div style="text-align:center;background:rgba(255,92,58,0.1);border:1px solid rgba(255,92,58,0.3);border-radius:10px;padding:10px 18px;">
+              <div id="ai-heat" style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#ff7a5a;"></div>
+              <div style="font-size:10px;color:var(--muted);">Heat Score</div>
             </div>
-            <div class="fake-metric">
-              <div class="fake-metric-label">Viral alerts</div>
-              <div class="fake-metric-val" style="color:#ff5c3a;">19</div>
-              <div class="fake-metric-delta">↑ 4 this hour</div>
-            </div>
-            <div class="fake-metric">
-              <div class="fake-metric-label">Opportunities</div>
-              <div class="fake-metric-val">143</div>
-              <div class="fake-metric-delta">Low competition</div>
-            </div>
-            <div class="fake-metric">
-              <div class="fake-metric-label">Avg heat score</div>
-              <div class="fake-metric-val">78.4</div>
-              <div class="fake-metric-delta" style="color:rgba(255,255,255,0.3);">↓ 2.1 vs yest.</div>
+            <div style="text-align:center;background:rgba(123,110,246,0.1);border:1px solid rgba(123,110,246,0.3);border-radius:10px;padding:10px 18px;">
+              <div id="ai-opportunity" style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#a99dfa;"></div>
+              <div style="font-size:10px;color:var(--muted);">Opportunity</div>
             </div>
           </div>
-
-          <div class="fake-two-col" style="flex:1;overflow:hidden;">
-            <div class="fake-card">
-              <div class="fake-card-header">
-                <span>Top rising trends</span>
-                <span style="color:var(--accent);">1h ▸</span>
-              </div>
-              <div class="fake-trend-row">
-                <div class="fake-rank">1</div>
-                <div class="fake-trend-info">
-                  <div class="fake-trend-name">AI faceless channels</div>
-                  <div class="fake-trend-meta">TikTok · YouTube · 4.2M</div>
-                </div>
-                <div class="fake-heat"><div class="fake-heat-fill" style="width:95%;background:#ff5c3a;"></div></div>
-                <div class="fake-score score-hot">🔥 95</div>
-              </div>
-              <div class="fake-trend-row">
-                <div class="fake-rank">2</div>
-                <div class="fake-trend-info">
-                  <div class="fake-trend-name">Vibe coding tutorials</div>
-                  <div class="fake-trend-meta">YouTube · Reddit · 2.8M</div>
-                </div>
-                <div class="fake-heat"><div class="fake-heat-fill" style="width:87%;background:#7b6ef6;"></div></div>
-                <div class="fake-score score-rise">↑ 87</div>
-              </div>
-              <div class="fake-trend-row">
-                <div class="fake-rank">3</div>
-                <div class="fake-trend-info">
-                  <div class="fake-trend-name">Micro SaaS solopreneurs</div>
-                  <div class="fake-trend-meta">Twitter/X · Indie Hackers</div>
-                </div>
-                <div class="fake-heat"><div class="fake-heat-fill" style="width:82%;background:#7b6ef6;"></div></div>
-                <div class="fake-score score-rise">↑ 82</div>
-              </div>
-              <div class="fake-trend-row">
-                <div class="fake-rank">4</div>
-                <div class="fake-trend-info">
-                  <div class="fake-trend-name">Quiet luxury aesthetic</div>
-                  <div class="fake-trend-meta">Instagram · Pinterest · 3.1M</div>
-                </div>
-                <div class="fake-heat"><div class="fake-heat-fill" style="width:75%;background:#2ce4a0;"></div></div>
-                <div class="fake-score score-new">✦ New</div>
-              </div>
-              <div class="fake-trend-row">
-                <div class="fake-rank">5</div>
-                <div class="fake-trend-info">
-                  <div class="fake-trend-name">Sleep optimization</div>
-                  <div class="fake-trend-meta">YouTube · Reddit · 1.1M</div>
-                </div>
-                <div class="fake-heat"><div class="fake-heat-fill" style="width:68%;background:#2ce4a0;"></div></div>
-                <div class="fake-score score-new">✦ New</div>
-              </div>
-            </div>
-
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <!-- sparkline -->
-              <div class="fake-card">
-                <div class="fake-card-header"><span>Growth curve</span></div>
-                <div class="fake-sparkline">
-                  <svg viewBox="0 0 180 60" fill="none" width="100%">
-                    <defs>
-                      <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#7b6ef6" stop-opacity="0.3"/>
-                        <stop offset="100%" stop-color="#7b6ef6" stop-opacity="0"/>
-                      </linearGradient>
-                    </defs>
-                    <path d="M0 55 L20 52 L40 48 L60 42 L80 34 L100 24 L120 16 L140 10 L160 5 L180 2 L180 60 L0 60Z" fill="url(#sg)"/>
-                    <path d="M0 55 L20 52 L40 48 L60 42 L80 34 L100 24 L120 16 L140 10 L160 5 L180 2" stroke="#7b6ef6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="180" cy="2" r="3" fill="#7b6ef6"/>
-                  </svg>
-                  <div style="font-size:9px;color:var(--green);font-weight:600;margin-top:4px;">+4800% this week</div>
-                </div>
-              </div>
-              <!-- live feed -->
-              <div class="fake-card" style="flex:1;overflow:hidden;">
-                <div class="fake-card-header">
-                  <span style="display:flex;align-items:center;gap:4px;"><div class="live-pulse" style="width:5px;height:5px;border-radius:50%;background:#ff5c3a;animation:blink 1.2s ease-in-out infinite;"></div>Live feed</span>
-                </div>
-                <div class="fake-feed-item">
-                  <div class="fake-feed-icon" style="background:rgba(123,110,246,0.2);color:#9e94f8;">T</div>
-                  <div class="fake-feed-text">#AItools hit 2M views in 3h — viral velocity spike</div>
-                </div>
-                <div class="fake-feed-item">
-                  <div class="fake-feed-icon" style="background:rgba(44,228,160,0.15);color:#2ce4a0;">R</div>
-                  <div class="fake-feed-text">Reddit: "I made $12k faceless" — 8.4k upvotes</div>
-                </div>
-                <div class="fake-feed-item">
-                  <div class="fake-feed-icon" style="background:rgba(245,166,35,0.15);color:#f5a623;">G</div>
-                  <div class="fake-feed-text">Google: "vibe coding" +340% this week</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="ocard"><div class="ocard-label">📊 Trend Summary</div><div class="ocard-body" id="ai-summary"></div></div>
+          <div class="ocard"><div class="ocard-label">🎯 Best Platforms</div><div class="ocard-body" id="ai-platforms"></div></div>
+          <div class="ocard"><div class="ocard-label">💡 Content Ideas</div><div class="ocard-body" id="ai-ideas"></div></div>
+          <div class="ocard"><div class="ocard-label">⚡ Action Steps</div><div class="ocard-body" id="ai-actions"></div></div>
+          <div class="ocard" style="grid-column:1/-1;"><div class="ocard-label">🔥 Viral Hook Ideas</div><div class="ocard-body" id="ai-hooks"></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-section">
-  <div class="stats-grid">
-    <div class="reveal">
-      <div class="stat-number">25+</div>
-      <div class="stat-label">Sources monitored</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-number">2.8M</div>
-      <div class="stat-label">Trends analyzed daily</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-number">72h</div>
-      <div class="stat-label">Average early detection</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-number">94%</div>
-      <div class="stat-label">Prediction accuracy</div>
-    </div>
-  </div>
-</div>
-
 <!-- SOURCES -->
 <div class="sources-section" id="sources">
   <div class="sources-label">Monitoring 25+ sources in real time</div>
   <div style="overflow:hidden;">
     <div class="sources-track">
-      <span class="source-pill"><span class="source-icon">📱</span>TikTok</span>
-      <span class="source-pill"><span class="source-icon">▶️</span>YouTube Shorts</span>
-      <span class="source-pill"><span class="source-icon">📸</span>Instagram Reels</span>
-      <span class="source-pill"><span class="source-icon">💬</span>Reddit</span>
-      <span class="source-pill"><span class="source-icon">𝕏</span>Twitter / X</span>
-      <span class="source-pill"><span class="source-icon">🔍</span>Google Trends</span>
-      <span class="source-pill"><span class="source-icon">🚀</span>Product Hunt</span>
-      <span class="source-pill"><span class="source-icon">💡</span>Indie Hackers</span>
-      <span class="source-pill"><span class="source-icon">📌</span>Pinterest</span>
-      <span class="source-pill"><span class="source-icon">🛒</span>Amazon Best Sellers</span>
-      <span class="source-pill"><span class="source-icon">🏪</span>Etsy Trends</span>
-      <span class="source-pill"><span class="source-icon">📱</span>App Store</span>
-      <span class="source-pill"><span class="source-icon">🎵</span>Trending Audio</span>
-      <!-- repeat -->
-      <span class="source-pill"><span class="source-icon">📱</span>TikTok</span>
-      <span class="source-pill"><span class="source-icon">▶️</span>YouTube Shorts</span>
-      <span class="source-pill"><span class="source-icon">📸</span>Instagram Reels</span>
-      <span class="source-pill"><span class="source-icon">💬</span>Reddit</span>
-      <span class="source-pill"><span class="source-icon">𝕏</span>Twitter / X</span>
-      <span class="source-pill"><span class="source-icon">🔍</span>Google Trends</span>
-      <span class="source-pill"><span class="source-icon">🚀</span>Product Hunt</span>
-      <span class="source-pill"><span class="source-icon">💡</span>Indie Hackers</span>
-      <span class="source-pill"><span class="source-icon">📌</span>Pinterest</span>
-      <span class="source-pill"><span class="source-icon">🛒</span>Amazon Best Sellers</span>
-      <span class="source-pill"><span class="source-icon">🏪</span>Etsy Trends</span>
-      <span class="source-pill"><span class="source-icon">📱</span>App Store</span>
-      <span class="source-pill"><span class="source-icon">🎵</span>Trending Audio</span>
+      <span class="source-pill">📱 TikTok</span><span class="source-pill">▶️ YouTube Shorts</span><span class="source-pill">📸 Instagram Reels</span><span class="source-pill">💬 Reddit</span><span class="source-pill">𝕏 Twitter / X</span><span class="source-pill">🔍 Google Trends</span><span class="source-pill">🚀 Product Hunt</span><span class="source-pill">💡 Indie Hackers</span><span class="source-pill">📌 Pinterest</span><span class="source-pill">🛒 Amazon Best Sellers</span><span class="source-pill">🏪 Etsy Trends</span><span class="source-pill">📱 App Store</span><span class="source-pill">🎵 Trending Audio</span>
+      <span class="source-pill">📱 TikTok</span><span class="source-pill">▶️ YouTube Shorts</span><span class="source-pill">📸 Instagram Reels</span><span class="source-pill">💬 Reddit</span><span class="source-pill">𝕏 Twitter / X</span><span class="source-pill">🔍 Google Trends</span><span class="source-pill">🚀 Product Hunt</span><span class="source-pill">💡 Indie Hackers</span><span class="source-pill">📌 Pinterest</span><span class="source-pill">🛒 Amazon Best Sellers</span><span class="source-pill">🏪 Etsy Trends</span><span class="source-pill">📱 App Store</span><span class="source-pill">🎵 Trending Audio</span>
     </div>
   </div>
 </div>
@@ -1449,53 +282,13 @@
     <h2>Built for the creator economy.<br>Powered by AI.</h2>
     <p class="section-sub">Every tool you need to find, analyze, and act on trends — before the competition even notices.</p>
   </div>
-
   <div class="features-grid reveal">
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(255,92,58,0.1);border-color:rgba(255,92,58,0.2);">🔥</div>
-      <div class="feature-title">Viral Heat Score</div>
-      <p class="feature-desc">Every trend gets a real-time Heat Score from 1–100 combining velocity, volume, and growth acceleration. Know exactly what's about to explode.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(123,110,246,0.1);border-color:rgba(123,110,246,0.2);">🎯</div>
-      <div class="feature-title">Opportunity Finder</div>
-      <p class="feature-desc">Find niches with high demand but low creator supply. The sweet spot where early movers win the most. Updated every 30 minutes.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(44,228,160,0.1);border-color:rgba(44,228,160,0.2);">📈</div>
-      <div class="feature-title">AI Trend Prediction</div>
-      <p class="feature-desc">Trained on millions of past viral trends, our model predicts which signals will go mainstream — and how long the window will last.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.2);">⚡</div>
-      <div class="feature-title">Hook Generator</div>
-      <p class="feature-desc">Pick a trend and get 10 scroll-stopping hooks in seconds. Trained on viral content patterns from TikTok, YouTube, and Instagram.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(123,110,246,0.1);border-color:rgba(123,110,246,0.2);">🎵</div>
-      <div class="feature-title">Trending Audio Radar</div>
-      <p class="feature-desc">Viral sounds on TikTok and Reels are the leading indicator most creators miss. We track audio momentum before views spike.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(255,92,58,0.1);border-color:rgba(255,92,58,0.2);">🌍</div>
-      <div class="feature-title">Geo Trend Radar</div>
-      <p class="feature-desc">Trends start locally before going global. Detect what's rising in São Paulo, Jakarta, or Lagos before it hits the US or UK market.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(44,228,160,0.1);border-color:rgba(44,228,160,0.2);">📅</div>
-      <div class="feature-title">AI Content Calendar</div>
-      <p class="feature-desc">Based on trend timing predictions, the AI auto-fills a 30-day content calendar with optimal posting windows for each platform.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.2);">👁️</div>
-      <div class="feature-title">Competitor Monitoring</div>
-      <p class="feature-desc">Track up to 50 creators or brands. Get alerted the moment a tracked account rides a trend — so you can move faster next time.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(123,110,246,0.1);border-color:rgba(123,110,246,0.2);">✍️</div>
-      <div class="feature-title">Script Writer</div>
-      <p class="feature-desc">Go from trend to full video script in 60 seconds. Choose your format: short-form hook + CTA, long-form explainer, or story-driven narrative.</p>
-    </div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,92,58,0.1);border-color:rgba(255,92,58,0.2);">🔥</div><div class="feature-title">Viral Heat Score</div><p class="feature-desc">Every trend gets a real-time Heat Score from 1–100 combining velocity, volume, and growth acceleration.</p></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(123,110,246,0.1);border-color:rgba(123,110,246,0.2);">🎯</div><div class="feature-title">Opportunity Finder</div><p class="feature-desc">Find niches with high demand but low creator supply. Updated every 30 minutes.</p></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(44,228,160,0.1);border-color:rgba(44,228,160,0.2);">📈</div><div class="feature-title">AI Trend Prediction</div><p class="feature-desc">Predicts which signals will go mainstream — and how long the window will last.</p></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.2);">⚡</div><div class="feature-title">Hook Generator</div><p class="feature-desc">Pick a trend and get 10 scroll-stopping hooks in seconds from viral content patterns.</p></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(123,110,246,0.1);border-color:rgba(123,110,246,0.2);">🎵</div><div class="feature-title">Trending Audio Radar</div><p class="feature-desc">Track audio momentum on TikTok and Reels before views spike.</p></div>
+    <div class="feature-card"><div class="feature-icon" style="background:rgba(255,92,58,0.1);border-color:rgba(255,92,58,0.2);">🌍</div><div class="feature-title">Geo Trend Radar</div><p class="feature-desc">Detect what's rising locally before it hits the global market.</p></div>
   </div>
 </section>
 
@@ -1504,64 +297,49 @@
   <div class="section-header reveal">
     <div class="section-label">Pricing</div>
     <h2>Start free. Scale when<br>trends start paying.</h2>
-    <p class="section-sub">No credit card required to get started. Upgrade when you're ready to go deeper.</p>
+    <p class="section-sub">No credit card required to get started.</p>
   </div>
-
   <div class="pricing-grid reveal">
-    <!-- Free -->
     <div class="pricing-card">
       <div class="plan-name">Free</div>
       <div class="plan-price"><sup>$</sup>0<sub>/month</sub></div>
-      <p class="plan-desc">Everything you need to discover your first viral trend. No card needed.</p>
+      <p class="plan-desc">Everything you need to discover your first viral trend.</p>
       <ul class="plan-features">
         <li><span class="check">✓</span> 10 trend alerts per day</li>
         <li><span class="check">✓</span> 5 platform sources</li>
         <li><span class="check">✓</span> Heat Score for all trends</li>
-        <li><span class="check">✓</span> 5 hook generations/month</li>
-        <li><span class="check">✓</span> Basic opportunity finder</li>
+        <li><span class="check">✓</span> AI Trend Analyzer</li>
         <li><span class="cross">✕</span> AI script writer</li>
         <li><span class="cross">✕</span> Competitor monitoring</li>
-        <li><span class="cross">✕</span> Trending audio radar</li>
-        <li><span class="cross">✕</span> Geo trend radar</li>
       </ul>
-      <a href="#cta" class="btn-xl-outline" style="text-align:center;justify-content:center;border-radius:8px;padding:11px 20px;font-size:14px;">Get started free</a>
+      <a href="#ai-analyzer" class="btn-xl-outline" style="text-align:center;justify-content:center;border-radius:8px;padding:11px 20px;font-size:14px;">Get started free</a>
     </div>
-
-    <!-- Pro (featured) -->
     <div class="pricing-card featured">
       <div class="featured-badge">Most popular</div>
       <div class="plan-name">Pro</div>
       <div class="plan-price"><sup>$</sup>49<sub>/month</sub></div>
-      <p class="plan-desc">For serious creators and marketers who need the full edge.</p>
+      <p class="plan-desc">For serious creators who need the full edge.</p>
       <ul class="plan-features">
         <li><span class="check">✓</span> Unlimited trend alerts</li>
         <li><span class="check">✓</span> All 25+ source platforms</li>
         <li><span class="check">✓</span> 500 AI credits/month</li>
         <li><span class="check">✓</span> Hook + script generator</li>
-        <li><span class="check">✓</span> Competitor tracking (10 accounts)</li>
-        <li><span class="check">✓</span> Trending audio radar</li>
-        <li><span class="check">✓</span> Geo trend radar</li>
+        <li><span class="check">✓</span> Competitor tracking</li>
         <li><span class="check">✓</span> AI content calendar</li>
-        <li><span class="check">✓</span> Priority viral alerts</li>
       </ul>
       <a href="#cta" class="btn-xl" style="text-align:center;justify-content:center;border-radius:8px;padding:11px 20px;font-size:14px;">Start Pro free trial</a>
     </div>
-
-    <!-- Agency -->
     <div class="pricing-card">
       <div class="plan-name">Agency</div>
       <div class="plan-price"><sup>$</sup>199<sub>/month</sub></div>
-      <p class="plan-desc">For teams and agencies managing multiple clients and channels.</p>
+      <p class="plan-desc">For teams managing multiple clients and channels.</p>
       <ul class="plan-features">
         <li><span class="check">✓</span> Everything in Pro</li>
         <li><span class="check">✓</span> 2,500 AI credits/month</li>
         <li><span class="check">✓</span> 5 team seats</li>
-        <li><span class="check">✓</span> White-label PDF reports</li>
-        <li><span class="check">✓</span> API access (1,000 calls/mo)</li>
-        <li><span class="check">✓</span> Competitor tracking (50 accounts)</li>
-        <li><span class="check">✓</span> Custom niche watchlists</li>
+        <li><span class="check">✓</span> White-label reports</li>
+        <li><span class="check">✓</span> API access</li>
         <li><span class="check">✓</span> Priority support</li>
-        <li><span class="check">✓</span> Client reporting dashboard</li>
       </ul>
       <a href="#cta" class="btn-xl-outline" style="text-align:center;justify-content:center;border-radius:8px;padding:11px 20px;font-size:14px;">Talk to sales</a>
     </div>
@@ -1570,79 +348,130 @@
 
 <!-- CTA -->
 <section class="cta-section" id="cta">
-  <div class="orb orb-1" style="opacity:0.5;"></div>
   <div class="cta-box reveal">
     <div class="section-label">Get started today</div>
     <h2>Your next viral trend<br>is waiting to be found</h2>
-    <p style="color:var(--muted);margin-top:16px;font-size:16px;font-weight:300;line-height:1.6;">
-      Join 12,400+ creators already catching trends 48–72 hours before everyone else. Free forever. No credit card needed.
-    </p>
+    <p style="color:var(--muted);margin-top:16px;font-size:16px;font-weight:300;line-height:1.6;">Join 12,400+ creators already catching trends 48–72 hours before everyone else.</p>
     <form class="cta-form" onsubmit="handleSignup(event)">
       <input type="email" class="cta-input" placeholder="Enter your email address" required id="email-input">
-      <button type="submit" class="btn-xl" style="padding:12px 24px;font-size:14px;white-space:nowrap;">
-        Start free →
-      </button>
+      <button type="submit" class="btn-xl" style="padding:12px 24px;font-size:14px;white-space:nowrap;">Start free →</button>
     </form>
     <p id="signup-msg" style="margin-top:12px;font-size:13px;color:var(--green);display:none;">🎉 You're on the list! Check your inbox.</p>
     <p style="margin-top:16px;font-size:12px;color:var(--muted);">Free forever · No credit card · Cancel anytime</p>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <a href="#" class="footer-logo">
-    <div class="footer-mark"></div>
-    <span class="footer-name">TrendSniper AI</span>
-  </a>
-  <ul class="footer-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">API Docs</a></li>
-    <li><a href="#">Privacy</a></li>
-    <li><a href="#">Terms</a></li>
-  </ul>
+  <a href="#" class="footer-logo"><div class="footer-mark"></div><span class="footer-name">TrendSniper AI</span></a>
+  <ul class="footer-links"><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#ai-analyzer">AI Analyzer</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul>
   <span class="footer-copy">© 2025 TrendSniper AI. Built with ❤️ for creators.</span>
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+// ══ GEMINI API KEY ══
+const GEMINI_API_KEY = "AIzaSyCNQtpvq0QrdoREUCkD0-Qw109Gcfds5Q8";
+
+// ══ SCROLL REVEAL ══
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ══ QUICK ANALYZE ══
+function quickAnalyze(topic) {
+  document.getElementById('trend-input').value = topic;
+  analyzeTrend();
+}
+
+// ══ ANALYZE TREND ══
+async function analyzeTrend() {
+  const topic = document.getElementById('trend-input').value.trim();
+  if (!topic) { alert('Please enter a trend or niche to analyze!'); return; }
+
+  const btn = document.getElementById('analyze-btn');
+  const spinner = document.getElementById('btn-spinner');
+  const label = document.getElementById('btn-label');
+  const output = document.getElementById('ai-output');
+  const error = document.getElementById('ai-error');
+
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  label.textContent = 'Analyzing...';
+  output.style.display = 'none';
+  error.style.display = 'none';
+
+  const prompt = `You are a viral trend analyst. Analyze this trend/niche: "${topic}"
+
+Respond ONLY with a valid JSON object (no markdown, no backticks):
+{
+  "trend_name": "Short catchy trend name",
+  "tagline": "One sentence description of why this is trending",
+  "heat_score": 85,
+  "opportunity_score": "High",
+  "summary": "2-3 sentences about current trend status and why it's growing",
+  "platforms": "List the top 3-4 best platforms for this trend and why",
+  "content_ideas": "List 4 specific content ideas numbered 1-4",
+  "action_steps": "List 3 immediate action steps numbered 1-3",
+  "hooks": "Write 3 viral hook examples for this trend, each on a new line starting with 🔥"
+}`;
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    );
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const data = await res.json();
 
-  // Stagger children
-  document.querySelectorAll('.features-grid .feature-card, .pricing-grid .pricing-card, .stats-grid > div').forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.07) + 's';
-    el.classList.add('reveal');
-    observer.observe(el);
-  });
+    if (!res.ok) {
+      throw new Error(data.error?.message || 'API error');
+    }
 
-  // Signup form
-  function handleSignup(e) {
-    e.preventDefault();
-    const msg = document.getElementById('signup-msg');
-    const input = document.getElementById('email-input');
-    msg.style.display = 'block';
-    input.value = '';
-    setTimeout(() => { msg.style.display = 'none'; }, 5000);
+    let text = data.candidates[0].content.parts[0].text;
+    text = text.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(text);
+
+    // Populate output
+    document.getElementById('ai-trend-name').textContent = result.trend_name;
+    document.getElementById('ai-trend-tag').textContent = result.tagline;
+    document.getElementById('ai-heat').textContent = result.heat_score + '/100';
+    document.getElementById('ai-opportunity').textContent = result.opportunity_score;
+    document.getElementById('ai-summary').textContent = result.summary;
+    document.getElementById('ai-platforms').textContent = result.platforms;
+    document.getElementById('ai-ideas').innerHTML = result.content_ideas.replace(/\n/g, '<br>');
+    document.getElementById('ai-actions').innerHTML = result.action_steps.replace(/\n/g, '<br>');
+    document.getElementById('ai-hooks').innerHTML = result.hooks.replace(/\n/g, '<br>');
+
+    output.style.display = 'block';
+    output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch(e) {
+    error.textContent = '⚠ ' + e.message;
+    error.style.display = 'block';
   }
 
-  // Subtle parallax on orbs
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    document.querySelectorAll('.orb').forEach((orb, i) => {
-      const factor = (i + 1) * 0.3;
-      orb.style.transform = `translateX(calc(-50% + ${x * factor}px)) translateY(${y * factor}px)`;
-    });
-  });
+  btn.disabled = false;
+  spinner.style.display = 'none';
+  label.textContent = 'Analyze 🔍';
+}
+
+// Enter key support
+document.getElementById('trend-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') analyzeTrend();
+});
+
+// Signup form
+function handleSignup(e) {
+  e.preventDefault();
+  const msg = document.getElementById('signup-msg');
+  document.getElementById('email-input').value = '';
+  msg.style.display = 'block';
+  setTimeout(() => { msg.style.display = 'none'; }, 5000);
+}
 </script>
 </body>
 </html>
